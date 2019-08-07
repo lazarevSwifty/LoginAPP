@@ -12,13 +12,21 @@ class LoginViewController: UIViewController {
     
     @IBOutlet var loginTextField: UITextField!
     @IBOutlet var passwordTextField: UITextField!
-    // login and password parameters
+    
     private let login = "User"
     private let password = "Password"
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor(patternImage: UIImage(named: "background")!)
+        
+        NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: nil) { (nc) in
+            self.view.frame.origin.y = -100
+        }
+        
+        NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: nil) { (nc) in
+            self.view.frame.origin.y = 0
+        }
     }
 
     @IBAction func loginClick(_ sender: UIButton){
